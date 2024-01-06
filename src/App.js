@@ -1,21 +1,16 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { useState } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/UI/navbar/Navbar'
-import About from './pages/About'
-import PostIdPage from './pages/PostIdPage'
-import Posts from './pages/Posts'
+import AppRouter from './pages/AppRouter'
 
 const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
   return (
+
     <BrowserRouter>
       <Navbar />
-      <Routes>
-        <Route path="/about" element={<About />} />
-        <Route path="/posts" element={<Posts />} />
-        {/* динамический маршрут */}
-        <Route path="/posts/:id" element={<PostIdPage />} />
-        <Route path="" element={<Navigate to="/posts" replace />} />
-      </Routes>
+      <AppRouter />
     </BrowserRouter>
   )
 }

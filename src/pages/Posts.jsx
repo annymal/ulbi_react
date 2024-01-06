@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PostService from '../API/PostService'
 import PostFilter from '../components/PostFilter'
 import PostForm from '../components/PostForm'
+import PostList from '../components/PostList'
 import MyButton from '../components/UI/button/MyButton'
 import Loader from '../components/UI/loader/Loader'
 import MyModal from '../components/UI/modal/MyModal'
@@ -26,9 +27,11 @@ const Posts = () => {
 		setPosts(response.data)
 		const totalCount = response.headers['x-total-count'];
 		setTotalPages(getPageCount(totalCount, limit))
+		console.log(response.data)
 	})
 
 	console.log(totalPages);
+
 
 	useEffect(() => {
 		fetchPosts(limit, page)
@@ -66,6 +69,8 @@ const Posts = () => {
 				setFilter={setFilter}
 			/>
 			{postError && <h1>Произошла ошибка ${postError}</h1>}
+
+			<PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты про JS" />
 			{isPostsLoading &&
 				<div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
 			}
